@@ -41,7 +41,21 @@ class App extends Component {
     super(); // So we are able to use 'this'
     this.state = {
       input: '',
-      imageUrl: ''
+      imageUrl: '',
+      //  box state contains values we receive from API => see function(response) below
+      box: {},  
+    }
+  }
+
+  calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputimage');
+    const width = Number(image.width);
+    const height = Number(image.width);
+    console.log(width, height);
+    return {
+      //  This object is going to fill up 'box' state
+      
     }
   }
 
@@ -56,14 +70,8 @@ class App extends Component {
       .predict(
         Clarifai.FACE_DETECT_MODEL, //  https://github.com/Clarifai/clarifai-javascript/blob/master/src/index.js
         this.state.input) //  URL we put in input field
-      .then(
-    function(response) {
-      console.log(response.outputs[0].data.regions[0].region_info.bounding_box);  // Access bounding_box object data we get from API
-    },
-    function(err) {
-      // there was an error
-    }
-  );
+      .then(response => this.calculateFaceLocation(response))
+      .catch(err => console.log(err));
   }
 
   render() {
