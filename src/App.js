@@ -36,7 +36,11 @@ class App extends Component {
   }
 
   onInputChange = (event) => {
-    console.log(event);
+    console.log(event.target.value);  //  Get currently typed value from input
+  }
+
+  onButtonSubmit = () => {
+    console.log('click');
   }
 
   render() {
@@ -48,7 +52,9 @@ class App extends Component {
             />
         <Navigation />
         <Logo />       
-        <ImageLinkForm onInputChange={ this.onInputChange } />  {/* Passed as a 'prop'  */}
+        <ImageLinkForm 
+          onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
+          onButtonSubmit={ this.onButtonSubmit } />  
         <Rank />
         {/*
         <FaceRecognition /> */}
