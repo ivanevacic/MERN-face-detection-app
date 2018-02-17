@@ -1,22 +1,22 @@
 import React from 'react';
-//  https://www.npmjs.com/package/react-tilt
-import Tilt from 'react-tilt';
 //  Import styling for this component
-import './Logo.css';
-//  Import logo picture URL:'https://icons8.com/icon/48534/mind-map'
-import AIimage from './AI-icon.png';  
+import './ImageLinkForm.css';
 
-const Logo = () => {
+const ImageLinkForm = () => {
   return (
-    <div className='ma4 mt0'>
-      <Tilt className="Tilt br2 shadow-2" options={{ max : 25 }} style={{ height: 150, width: 150 }} >
-        <div className="Tilt-inner pa3"> 
-        {/* Import logo and set padding top 5px */}
-          <img style={{ paddingTop: '5px' }}alt='logo' src={ AIimage }/>
+    <div>
+      <p className='f3'>
+        {'This Magic Brain will detect faces in your pictures.'}
+      </p>
+      <div className='center'> 
+      {/* className=form => ImageLinkForm.css -> .form  */}
+        <div className='form pa4 br3 shadow-5'>
+          <input className='f4 pa2 w-70 center' type='tex'/>
+          <button className='w-30 grow f4 link ph3 pv2 dib white bg-mid-gray'>Detect</button>
         </div>
-      </Tilt>
+      </div>
     </div>
   );
 }
 
-export default Logo;
+export default ImageLinkForm;
