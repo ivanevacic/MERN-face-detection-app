@@ -1,5 +1,5 @@
 import React from 'react';
-//  Import react-tilt URL:'https://www.npmjs.com/package/react-tilt'
+//  https://www.npmjs.com/package/react-tilt
 import Tilt from 'react-tilt';
 //  Import styling for this component
 import './Logo.css';
