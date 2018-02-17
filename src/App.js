@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input})  //  imageURL is what ever the input is,that way we can pass it to 'Facerecognition' as props
+    this.setState({imageUrl: this.state.input});  //  imageURL is what ever the input is,that way we can pass it to 'Facerecognition' as props
     //  https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
     app.models
       .predict(
@@ -58,7 +58,7 @@ class App extends Component {
         this.state.input) //  URL we put in input field
       .then(
     function(response) {
-      console.log(response[]);  //  Currently here for testing purposes
+      console.log(response.outputs[0].data.regions[0].region_info.bounding_box);  // Access bounding_box object data we get from API
     },
     function(err) {
       // there was an error
