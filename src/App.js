@@ -27,6 +27,18 @@ const particlesOptions = {
 }
 
 class App extends Component {
+  //  Need to create state of input so it changes when user updates it..etc.. 
+  constructor() {
+    super(); // So we are able to use 'this'
+    this.state = {
+      input: '',
+    }
+  }
+
+  onInputChange = (event) => {
+    console.log(event);
+  }
+
   render() {
     return (
       <div className="App">
@@ -36,7 +48,7 @@ class App extends Component {
             />
         <Navigation />
         <Logo />       
-        <ImageLinkForm />
+        <ImageLinkForm onInputChange={ this.onInputChange } />  {/* Passed as a 'prop'  */}
         <Rank />
         {/*
         <FaceRecognition /> */}
