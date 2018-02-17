@@ -55,8 +55,17 @@ class App extends Component {
     console.log(width, height);
     return {
       //  This object is going to fill up 'box' state
-      
+        //  Calculations for position of face on the picture based on API data
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - (clarifaiFace.right_col * width),
+        bottomRow: height - (clarifaiFace.bottom_row * height)
     }
+  }
+
+  displayFaceBox = (box) => {
+    console.log(box);
+    this.setState({ box: box});
   }
 
   onInputChange = (event) => {
@@ -70,7 +79,7 @@ class App extends Component {
       .predict(
         Clarifai.FACE_DETECT_MODEL, //  https://github.com/Clarifai/clarifai-javascript/blob/master/src/index.js
         this.state.input) //  URL we put in input field
-      .then(response => this.calculateFaceLocation(response))
+      .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(err => console.log(err));
   }
 
@@ -85,7 +94,7 @@ class App extends Component {
           onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
           onButtonSubmit={ this.onButtonSubmit } />  
         <Rank />       
-        <FaceRecognition imageUrl={ this.state.imageUrl }/> 
+        <FaceRecognition box={this.state.box} imageUrl={ this.state.imageUrl }/> {/*  Added box and imageUrl props  */}
       </div>
     );
   }
