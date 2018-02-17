@@ -5,6 +5,9 @@ import Navigation from './Components/Navigation/Navigation';
 import Logo from './Components/Logo/Logo';
 //  Imported ImageLinkForm component
 import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
+//  Imported Rank component
+import Rank from './Components/Rank/Rank';
+//  Imported App.js styling
 import './App.css';
 
 class App extends Component {
@@ -14,6 +17,7 @@ class App extends Component {
         <Navigation />
         <Logo />       
         <ImageLinkForm />
+        <Rank />
         {/*
         <FaceRecognition /> */}
       </div>
