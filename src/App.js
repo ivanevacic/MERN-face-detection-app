@@ -7,6 +7,8 @@ import Logo from './Components/Logo/Logo';
 import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
 //  Imported Rank component
 import Rank from './Components/Rank/Rank';
+//  Imported FaceRecognition component
+import FaceRecognition from './Components/FaceRecognition/FaceRecognition';
 //  Import react-particles-js URL:'https://www.npmjs.com/package/react-particles-js'
 import Particles from 'react-particles-js';
 //  Import 'clarifai' URL:'https://www.clarifai.com/developer/'
@@ -39,18 +41,24 @@ class App extends Component {
     super(); // So we are able to use 'this'
     this.state = {
       input: '',
+      imageUrl: ''
     }
   }
 
   onInputChange = (event) => {
-    console.log(event.target.value);  //  Get currently typed value from input
+    this.setState({ input: event.target.value});  //  Get currently typed value from input
   }
 
   onButtonSubmit = () => {
+    this.setState({imageUrl: this.state.input})  //  imageURL is what ever the input is,that way we can pass it to 'Facerecognition' as props
     //  https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
-    app.models.predict("a403429f2ddf4b49b307e318f00e528b", "https://samples.clarifai.com/face-det.jpg").then(
+    app.models
+      .predict(
+        Clarifai.FACE_DETECT_MODEL, //  https://github.com/Clarifai/clarifai-javascript/blob/master/src/index.js
+        this.state.input) //  URL we put in input field
+      .then(
     function(response) {
-      console.log(response);
+      console.log(response[]);  //  Currently here for testing purposes
     },
     function(err) {
       // there was an error
@@ -61,18 +69,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {/* We can add Particles 'component' here,becouse it's on background  */}
-        <Particles className='particles'
-              params={ particlesOptions }
-            />
+      {/* We can add Particles 'component' here,because it's on background  */}
+        <Particles className='particles' params={ particlesOptions }/>
         <Navigation />
         <Logo />       
         <ImageLinkForm 
           onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
           onButtonSubmit={ this.onButtonSubmit } />  
-        <Rank />
-        {/*
-        <FaceRecognition /> */}
+        <Rank />       
+        <FaceRecognition imageUrl={ this.state.imageUrl }/> 
       </div>
     );
   }
