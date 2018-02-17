@@ -1,0 +1,4 @@
+/*  Targets className="Tilt" in Logo.js  */
+.Tilt {
+  background: linear-gradient(to right, rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%);
+}
