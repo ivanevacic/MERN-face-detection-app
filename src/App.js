@@ -9,8 +9,15 @@ import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
 import Rank from './Components/Rank/Rank';
 //  Import react-particles-js URL:'https://www.npmjs.com/package/react-particles-js'
 import Particles from 'react-particles-js';
+//  Import 'clarifai' URL:'https://www.clarifai.com/developer/'
+import Clarifai from 'clarifai';
 //  Imported App.js styling
 import './App.css';
+
+//  Clarifai API key 
+const app = new Clarifai.App({
+  'apiKey': 'e505bb6a9fbe4e65886915c57181243d'
+});
 
 //  particlesOptions object is defind here so our render method is not so messy
 const particlesOptions = {
@@ -40,7 +47,15 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    console.log('click');
+    //  https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
+    app.models.predict("a403429f2ddf4b49b307e318f00e528b", "https://samples.clarifai.com/face-det.jpg").then(
+    function(response) {
+      console.log(response);
+    },
+    function(err) {
+      // there was an error
+    }
+  );
   }
 
   render() {
