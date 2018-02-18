@@ -1,15 +1,18 @@
 import React from 'react';
 
-const SignIn = ({ onRouteChange }) => {
+const Register = ({ onRouteChange }) => {
   return (
     /* http://tachyons.io/components/cards/product-card/index.html */
     <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
     {/* http://tachyons.io/components/forms/sign-in/index.html */}
       <main className="pa4 black-80">
-      {/* Changed 'form' to 'div' because we don't need it */}
         <div className="measure">
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-            <legend className="f1 fw6 ph0 mh0">Sign In</legend>
+            <legend className="f1 fw6 ph0 mh0">Register</legend>
+            <div className="mt3">
+              <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+              <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="name" name="name" id="name"/>
+            </div>
             <div className="mt3">
               <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
               <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address"/>
@@ -21,13 +24,11 @@ const SignIn = ({ onRouteChange }) => {
           </fieldset>
           <div className="">            
             <input 
-            onClick={ () => onRouteChange('home') }
+            onClick={() => onRouteChange('home') }
             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
             type="submit" 
-            value="Sign in"/>
-          </div>
-          <div className="lh-copy mt3">
-            <p onClick={() => onRouteChange('register') }  className="f6 link dim black db pointer">Register</p>
+            value="Register"
+            />
           </div>
         </div>
       </main>
@@ -35,4 +36,4 @@ const SignIn = ({ onRouteChange }) => {
   );
 }
 
-export default SignIn;
+export default  Register;

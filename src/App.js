@@ -11,6 +11,8 @@ import Rank from './Components/Rank/Rank';
 import FaceRecognition from './Components/FaceRecognition/FaceRecognition';
 //  Imported SignIn component
 import SignIn from './Components/SignIn/SignIn';
+//  Imported Register component
+import Register from './Components/Register/Register';
 //  Import react-particles-js URL:'https://www.npmjs.com/package/react-particles-js'
 import Particles from 'react-particles-js';
 //  Import 'clarifai' URL:'https://www.clarifai.com/developer/'
@@ -47,7 +49,8 @@ class App extends Component {
       //  box state contains values we receive from API => see function(response) below
       box: {},
       //  Keeps track of where we are on the page
-      route: 'signin'
+      route: 'signin',
+      isSignedIn: false
     }
   }
 
@@ -68,7 +71,6 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log(box);
     this.setState({ box: box});
   }
 
@@ -88,27 +90,38 @@ class App extends Component {
   }
   //  Dynamically change route 
   onRouteChange = (route) => {
+    if(route === 'signout') {
+      this.setState({isSignedIn: false})
+    } else if (route === 'home') {
+      this.setState({isSignedIn: true})
+    } 
     this.setState({route: route});
   }
 
   render() {
+    //  Destructuring,because our code is simpler
+    const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
         <Particles className='particles' params={ particlesOptions }/>   
-        <Navigation onRouteChange={ this.onRouteChange } />     
-        { this.state.route === 'signin' 
-            ? <SignIn onRouteChange={ this.onRouteChange} />
-            : <div>
-              {/* Needs to be wrapped in '<div>' otherwise we get err */}
-                <Logo />
-                <Rank />       
-                <ImageLinkForm 
-                  onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
-                  onButtonSubmit={ this.onButtonSubmit } 
-                />               
-                {/*  Added box and imageUrl props  */}
-                <FaceRecognition box={this.state.box} imageUrl={ this.state.imageUrl } />
-              </div> 
+        <Navigation isSignedIn={ isSignedIn } onRouteChange={ this.onRouteChange } />     
+        { route === 'home' 
+            ? <div>
+                {/* Needs to be wrapped in '<div>' otherwise we get err */}
+                  <Logo />
+                  <Rank />       
+                  <ImageLinkForm 
+                    onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
+                    onButtonSubmit={ this.onButtonSubmit } 
+                  />               
+                  {/*  Added box and imageUrl props  */}
+                  <FaceRecognition box={box} imageUrl={ imageUrl } />
+                </div> 
+            : (
+              route === 'signin'
+              ? <SignIn onRouteChange={ this.onRouteChange }/>
+              : <Register onRouteChange={ this.onRouteChange }/>
+            )
         }
       </div>
     );
