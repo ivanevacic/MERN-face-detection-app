@@ -9,6 +9,8 @@ import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
 import Rank from './Components/Rank/Rank';
 //  Imported FaceRecognition component
 import FaceRecognition from './Components/FaceRecognition/FaceRecognition';
+//  Imported SignIn component
+import SignIn from './Components/SignIn/SignIn';
 //  Import react-particles-js URL:'https://www.npmjs.com/package/react-particles-js'
 import Particles from 'react-particles-js';
 //  Import 'clarifai' URL:'https://www.clarifai.com/developer/'
@@ -88,6 +90,7 @@ class App extends Component {
       <div className="App">
       {/* We can add Particles 'component' here,because it's on background  */}
         <Particles className='particles' params={ particlesOptions }/>
+        <SignIn />
         <Navigation />
         <Logo />       
         <ImageLinkForm 
