@@ -45,7 +45,9 @@ class App extends Component {
       input: '',
       imageUrl: '',
       //  box state contains values we receive from API => see function(response) below
-      box: {},  
+      box: {},
+      //  Keeps track of where we are on the page
+      route: 'signin'
     }
   }
 
@@ -88,19 +90,26 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {/* We can add Particles 'component' here,because it's on background  */}
-        <Particles className='particles' params={ particlesOptions }/>
-        <SignIn />
-        <Navigation />
-        <Logo />       
-        <ImageLinkForm 
-          onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
-          onButtonSubmit={ this.onButtonSubmit } />  
-        <Rank />       
-        <FaceRecognition box={this.state.box} imageUrl={ this.state.imageUrl }/> {/*  Added box and imageUrl props  */}
+        <Particles className='particles' params={ particlesOptions }/>   
+        <Navigation />     
+        { this.state.route === 'signin' 
+            ? <SignIn />
+            : <div>
+              {/* Needs to be wrapped in '<div>' otherwise we get err */}
+                <Logo />
+                <Rank />       
+                <ImageLinkForm 
+                  onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
+                  onButtonSubmit={ this.onButtonSubmit } 
+                />               
+                {/*  Added box and imageUrl props  */}
+                <FaceRecognition box={this.state.box} imageUrl={ this.state.imageUrl } />
+              </div> 
+        }
       </div>
     );
   }
 }
+
 
 export default App;
