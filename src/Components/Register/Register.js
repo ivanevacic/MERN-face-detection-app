@@ -21,7 +21,7 @@ class Register extends React.Component {
 
     onSubmitSignIn = () => {
       //  Connect to our local API
-      fetch('http://localhost:3000/signin', {
+      fetch('http://localhost:3000/register', {
         //  Describes what the request will be
           method: 'post',
           headers: {'Content-Type': 'application/json'},
@@ -35,6 +35,9 @@ class Register extends React.Component {
         .then(user => {
           //  If we get user back(successfull register)
           if(user){
+            //  Load user
+            this.props.loadUser(user);
+            //  Redirect to homepage
             this.props.onRouteChange('home');
           }
         })
