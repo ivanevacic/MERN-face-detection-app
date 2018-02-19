@@ -128,7 +128,7 @@ class App extends Component {
             ? <div>
                 {/* Needs to be wrapped in '<div>' otherwise we get err */}
                   <Logo />
-                  <Rank />       
+                  <Rank name={ this.state.user.name } entries={ this.state.user.entries }/>       
                   <ImageLinkForm 
                     onInputChange={ this.onInputChange }   /* Passed as a 'prop'  */
                     onButtonSubmit={ this.onButtonSubmit } 
@@ -138,7 +138,7 @@ class App extends Component {
                 </div> 
             : (
               route === 'signin'
-              ? <SignIn onRouteChange={ this.onRouteChange }/>
+              ? <SignIn loadUser={ this.loadUser }onRouteChange={ this.onRouteChange }/>
               : <Register loadUser={ this.loadUser } onRouteChange={ this.onRouteChange }/>
             )
         }
