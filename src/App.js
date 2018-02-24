@@ -39,11 +39,7 @@ const particlesOptions = {
   }
 }
 
-class App extends Component {
-  //  Need to create state of input so it changes when user updates it..etc.. 
-  constructor() {
-    super(); // So we are able to use 'this'
-    this.state = {
+const initialState = {
       input: '',
       imageUrl: '',
       //  box state contains values we receive from API => see function(response) below
@@ -59,15 +55,22 @@ class App extends Component {
         entries: 0,
         joined: ''
       }
-    }
+}
+
+class App extends Component {
+  //  Need to create state of input so it changes when user updates it..etc.. 
+  constructor() {
+    super(); // So we are able to use 'this'
+    this.state = initialState;
   }
+
 
   loadUser = (data) => {
     this.setState({user: {
         id: data.id,
         name: data.name,
         email: data.email,
-        entries: 0,
+        entries: data.entries,
         joined: data.joined
     }})
   }
@@ -127,7 +130,7 @@ class App extends Component {
   //  Dynamically change route 
   onRouteChange = (route) => {
     if(route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState({initialState})
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     } 
@@ -155,7 +158,7 @@ class App extends Component {
                 </div> 
             : (
               route === 'signin'
-              ? <SignIn loadUser={ this.loadUser }onRouteChange={ this.onRouteChange }/>
+              ? <SignIn loadUser={ this.loadUser } onRouteChange={ this.onRouteChange }/>
               : <Register loadUser={ this.loadUser } onRouteChange={ this.onRouteChange }/>
             )
         }
