@@ -39,6 +39,7 @@ const particlesOptions = {
   }
 }
 
+//  initial state variable
 const initialState = {
       input: '',
       imageUrl: '',
@@ -127,10 +128,11 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
+
   //  Dynamically change route 
   onRouteChange = (route) => {
     if(route === 'signout') {
-      this.setState({initialState})
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     } 
