@@ -34,7 +34,7 @@ class Register extends React.Component {
         .then(response => response.json())
         .then(user => {
           //  If we get user back(successfull register)
-          if(user){
+          if(user.id){
             //  Load user
             this.props.loadUser(user);
             //  Redirect to homepage
