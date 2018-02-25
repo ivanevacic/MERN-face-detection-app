@@ -15,15 +15,8 @@ import SignIn from './Components/SignIn/SignIn';
 import Register from './Components/Register/Register';
 //  Import react-particles-js URL:'https://www.npmjs.com/package/react-particles-js'
 import Particles from 'react-particles-js';
-//  Import 'clarifai' URL:'https://www.clarifai.com/developer/'
-import Clarifai from 'clarifai';
 //  Imported App.js styling
 import './App.css';
-
-//  Clarifai API key 
-const app = new Clarifai.App({
-  'apiKey': 'e505bb6a9fbe4e65886915c57181243d'
-});
 
 //  particlesOptions object is defind here so our render method is not so messy
 const particlesOptions = {
@@ -101,33 +94,35 @@ class App extends Component {
     this.setState({ input: event.target.value});  //  Get currently typed value from input
   }
 
-  onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input});  //  imageURL is what ever the input is,that way we can pass it to 'Facerecognition' as props
-    //  https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL, //  https://github.com/Clarifai/clarifai-javascript/blob/master/src/index.js
-        this.state.input) //  URL we put in input field
-      .then(response => {
-        if(response) {
-          fetch('http://localhost:3000/image', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
+ onButtonSubmit = () => {
+  this.setState({imageUrl: this.state.input});  //  imageURL is what ever the input is,that way we can pass it to 'Facerecognition' as props
+    fetch('http://localhost:3000/imageURL', { //  https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        fetch('http://localhost:3000/image', {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
           })
+        })
           .then(response => response.json())
           .then(count => {
-            this.setState(Object.assign(this.state.user, {
-              entries: count
-            }))
+            this.setState(Object.assign(this.state.user, { entries: count}))
           })
-        }
-        this.displayFaceBox(this.calculateFaceLocation(response))
-      })
-      .catch(err => console.log(err));
-  }
+          .catch(console.log)
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response))
+    })
+    .catch(err => console.log(err));
+}
 
   //  Dynamically change route 
   onRouteChange = (route) => {
