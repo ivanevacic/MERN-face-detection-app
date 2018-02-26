@@ -16,7 +16,7 @@ class SignIn extends React.Component {
   }
   onSubmitSignIn = () => {
     //  Connect to our local API
-    fetch('http://localhost:3000/signin', {
+    fetch('https://calm-castle-45403.herokuapp.com/signin', {
       //  Describes what the request will be
         method: 'post',
         headers: {'Content-Type': 'application/json'},
