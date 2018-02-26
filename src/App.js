@@ -107,6 +107,7 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (response) {
+        //  Heroku API backend endpoint
         fetch('https://calm-castle-45403.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
